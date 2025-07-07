@@ -2,6 +2,7 @@ spring:
   application:
     name: qrcoderesultaccess
 
+#password will be hide
   datasource:
     url: jdbc:mysql://78.47.233.52:3306/medsoft_demo
     username: app_java_user

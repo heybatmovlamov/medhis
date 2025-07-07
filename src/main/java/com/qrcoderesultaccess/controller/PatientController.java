@@ -1,6 +1,6 @@
 package com.qrcoderesultaccess.controller;
 
-import com.qrcoderesultaccess.dao.entity.PatientInfoDto;
+import com.qrcoderesultaccess.model.dto.response.PatientInfoResponse;
 import com.qrcoderesultaccess.model.dto.response.PatientResponse;
 import com.qrcoderesultaccess.service.PatientService;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,8 @@ public class PatientController {
     }
 
     @GetMapping("/patients/{id}")
-    public ResponseEntity<PatientInfoDto> getPatientInfo(@PathVariable Long id) {
-        PatientInfoDto dto = patientService.getPatientInfoById(id);
+    public ResponseEntity<PatientInfoResponse> getPatientInfo(@PathVariable Long id) {
+        PatientInfoResponse dto = patientService.getPatientInfoById(id);
         if (dto == null) {
             return ResponseEntity.notFound().build();
         }
