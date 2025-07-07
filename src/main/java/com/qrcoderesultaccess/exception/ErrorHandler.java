@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Log4j2
 @Component
 @RequiredArgsConstructor
-@RestControllerAdvice
+//@RestControllerAdvice
 public class ErrorHandler extends ResponseEntityExceptionHandler {
 
 
