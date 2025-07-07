@@ -1,5 +1,6 @@
 package com.qrcoderesultaccess.model.dto.response;
 
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,5 +8,5 @@ import lombok.Data;
 @Builder
 public class PatientResponse {
 
-    private Integer id;
+    private List<Integer> id;
 }
