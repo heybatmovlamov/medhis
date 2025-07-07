@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PatientInfoResponse {
+
     private String patientName;
     private String secretCode;
     private String qrCode;
