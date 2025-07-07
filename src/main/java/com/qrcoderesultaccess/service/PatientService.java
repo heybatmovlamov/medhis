@@ -4,17 +4,16 @@ import com.qrcoderesultaccess.dao.entity.PatientInfoDto;
 import com.qrcoderesultaccess.dao.repository.PatientRepository;
 import com.qrcoderesultaccess.model.dto.response.PatientResponse;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class PatientService {
 
-    private static final Logger log = LoggerFactory.getLogger(PatientService.class);
     private final PatientRepository repository;
 
     @Transactional(readOnly = true)
