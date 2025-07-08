@@ -7,4 +7,5 @@ import lombok.NoArgsConstructor;
 public final class ErrorMessage {
 
     public static final String PATIENT_ID_NOT_FOUND = "Patient id not found.";
+    public static final String INPUT_IS_INVALID = "Input is invalid.";
 }

@@ -35,23 +35,21 @@ public class PatientServiceImpl implements PatientService {
     @Transactional(readOnly = true)
     @Override
     public PatientInfoResponse getPatientInfoById(Long id) {
-        PatientInfoResponse patientInfoDto = repository.getPatientInfo(id)
+        return  repository.getPatientInfo(id)
                 .stream()
                 .findFirst()
                 .orElseThrow(() -> DataNotFoundException.of(PATIENT_ID_NOT_FOUND));
-        return patientInfoDto;
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<LisReportsInfoResponse> lisReportsInfo(Long id) {
-        List<LisReportsInfoResponse> newLisReport = repository.getNewLisReport(id);
+        final List<LisReportsInfoResponse> newLisReport = repository.getNewLisReport(id);
         if (newLisReport.isEmpty()) {
             throw DataNotFoundException.of(PATIENT_ID_NOT_FOUND);
         }
         return newLisReport;
     }
-
 }
 
 
