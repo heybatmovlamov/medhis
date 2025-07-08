@@ -3,7 +3,7 @@ package com.qrcoderesultaccess.controller;
 import com.qrcoderesultaccess.model.dto.response.LisReportsInfoResponse;
 import com.qrcoderesultaccess.model.dto.response.PatientInfoResponse;
 import com.qrcoderesultaccess.model.dto.response.PatientResponse;
-import com.qrcoderesultaccess.service.PatientService;
+import com.qrcoderesultaccess.service.impl.PatientServiceImpl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,24 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class PatientController {
 
-    private final PatientService patientService;
+    private final PatientServiceImpl patientServiceImpl;
 
     @GetMapping("/patients")
     public ResponseEntity<PatientResponse> getPatients() {
-        return ResponseEntity.ok(patientService.patientResponse());
+        return ResponseEntity.ok(patientServiceImpl.patientResponse());
     }
 
     @GetMapping("/patients/{id}")
     public ResponseEntity<PatientInfoResponse> getPatientInfo(@PathVariable Long id) {
-        return ResponseEntity.ok(patientService.getPatientInfoById(id));
+        return ResponseEntity.ok(patientServiceImpl.getPatientInfoById(id));
     }
 
-    @GetMapping("/patient/lis/{id}")
+    @GetMapping("/patients/{id}/lis-reports")
     public ResponseEntity<List<LisReportsInfoResponse>> getPatientInfoList(@PathVariable Long id) {
-        return ResponseEntity.ok(patientService.lisReportsInfo(id));
+        return ResponseEntity.ok(patientServiceImpl.lisReportsInfo(id));
 
     }
 }
