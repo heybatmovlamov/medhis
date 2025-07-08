@@ -24,7 +24,7 @@ public class PatientServiceImpl implements PatientService {
     @Transactional(readOnly = true)
     @Override
     public PatientResponse patientResponse() {
-        Set<Integer> patientIds = repository.getPatientIds();
+        final Set<Integer> patientIds = repository.getPatientIds();
         if (patientIds.isEmpty()) {
             throw DataNotFoundException.of(PATIENT_ID_NOT_FOUND);
         }
@@ -51,7 +51,6 @@ public class PatientServiceImpl implements PatientService {
         }
         return newLisReport;
     }
-
 
 }
 

@@ -6,6 +6,7 @@ import com.qrcoderesultaccess.model.dto.response.PatientResponse;
 import java.util.List;
 
 public interface PatientService {
+
     PatientResponse patientResponse();
 
     PatientInfoResponse getPatientInfoById(Long id);
