@@ -16,12 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository repository;
 
-    @Transactional(readOnly = true)
     @Override
     public PatientResponse patientResponse() {
         final Set<Integer> patientIds = repository.getPatientIds();
@@ -31,19 +31,16 @@ public class PatientServiceImpl implements PatientService {
         return PatientResponse.builder().id(patientIds).build();
     }
 
-
-    @Transactional(readOnly = true)
     @Override
-    public PatientInfoResponse getPatientInfoById(Long id) {
+    public PatientInfoResponse getPatientInfoById(Integer id) {
         return  repository.getPatientInfo(id)
                 .stream()
                 .findFirst()
                 .orElseThrow(() -> DataNotFoundException.of(PATIENT_ID_NOT_FOUND));
     }
 
-    @Transactional(readOnly = true)
     @Override
-    public List<LisReportsInfoResponse> lisReportsInfo(Long id) {
+    public List<LisReportsInfoResponse> lisReportsInfo(Integer id) {
         final List<LisReportsInfoResponse> newLisReport = repository.getNewLisReport(id);
         if (newLisReport.isEmpty()) {
             throw DataNotFoundException.of(PATIENT_ID_NOT_FOUND);

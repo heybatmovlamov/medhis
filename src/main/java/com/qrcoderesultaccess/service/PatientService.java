@@ -9,7 +9,7 @@ public interface PatientService {
 
     PatientResponse patientResponse();
 
-    PatientInfoResponse getPatientInfoById(Long id);
+    PatientInfoResponse getPatientInfoById(Integer id);
 
-    List<LisReportsInfoResponse> lisReportsInfo(Long id);
+    List<LisReportsInfoResponse> lisReportsInfo(Integer id);
 }
