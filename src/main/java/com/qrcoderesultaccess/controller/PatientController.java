@@ -36,7 +36,6 @@ public class PatientController {
     @GetMapping("/patients/{id}/lis-reports")
     public ResponseEntity<List<LisReportsInfoResponse>> getPatientInfoLis(@PathVariable Integer id) {
         return ResponseEntity.ok(patientServiceImpl.lisReportsInfo(id));
-
     }
 
     @PostMapping("/test")
