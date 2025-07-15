@@ -1,6 +1,7 @@
 package com.qrcoderesultaccess.service.strategy;
 
 import com.qrcoderesultaccess.model.dto.response.CloudResponse;
+import com.qrcoderesultaccess.service.ClientService;
 import com.qrcoderesultaccess.service.DbFetcherService;
 import java.time.LocalTime;
 import lombok.RequiredArgsConstructor;
@@ -12,17 +13,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ActiveModeStrategy implements SchedulerStrategy {
 
-    private final DbFetcherService dbFetcherService;
+    private final DbFetcherService fetcherService;
+    private final ClientService clientService;
 
     @Override
-    public CloudResponse execute() {
-        return dbFetcherService.fetchDbData();
+    public Integer execute() {
+        CloudResponse response = fetcherService.fetchDbData();
+        return clientService.uploadToCloud(response);
     }
 
     @Override
     public Boolean shouldRun(LocalTime now) {
         log.info("Active mode running");
-        return now.getMinute() % 3 == 0;
+        return now.getMinute() % 2 == 0;
     }
 
     @Override
