@@ -2,7 +2,6 @@ package com.qrcoderesultaccess.service.strategy;
 
 import static java.lang.Boolean.FALSE;
 
-import com.qrcoderesultaccess.model.dto.response.CloudResponse;
 import java.time.LocalTime;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,8 +11,8 @@ import org.springframework.stereotype.Service;
 public class SleepModeStrategy implements SchedulerStrategy {
 
     @Override
-    public CloudResponse execute() {
-        return CloudResponse.builder().build();
+    public Integer execute() {
+        return 0;
     }
 
     @Override
