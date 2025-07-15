@@ -1,5 +1,6 @@
 package com.qrcoderesultaccess.service.strategy;
 
+import com.qrcoderesultaccess.config.CloudClient;
 import com.qrcoderesultaccess.model.dto.response.CloudResponse;
 import com.qrcoderesultaccess.service.DbFetcherService;
 import java.time.LocalTime;
@@ -12,17 +13,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PassiveModeStrategy implements SchedulerStrategy {
 
-    private final DbFetcherService dbFetcherService;
+    private final DbFetcherService fetcherService;
+    private final CloudClient client;
 
     @Override
-    public CloudResponse execute() {
-        return dbFetcherService.fetchDbData();
+    public Integer execute() {
+        CloudResponse response = fetcherService.fetchDbData();
+        return client.uploadToCloud(response);
     }
 
     @Override
     public Boolean shouldRun(LocalTime now) {
         log.info("Passive mode running");
-        return now.getMinute() % 15 == 0;
+        return now.getMinute() % 2 == 0;
     }
 
     @Override
