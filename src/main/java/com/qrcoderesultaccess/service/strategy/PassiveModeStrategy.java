@@ -1,7 +1,7 @@
 package com.qrcoderesultaccess.service.strategy;
 
 import com.qrcoderesultaccess.config.CloudClient;
-import com.qrcoderesultaccess.model.dto.response.CloudResponse;
+import com.qrcoderesultaccess.model.dto.CloudDto;
 import com.qrcoderesultaccess.service.DbFetcherService;
 import java.time.LocalTime;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class PassiveModeStrategy implements SchedulerStrategy {
 
     @Override
     public Integer execute() {
-        CloudResponse response = fetcherService.fetchDbData();
+        CloudDto response = fetcherService.fetchDbData();
         return client.uploadToCloud(response);
     }
 

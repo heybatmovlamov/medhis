@@ -1,4 +1,4 @@
-package com.qrcoderesultaccess.model.dto.response;
+package com.qrcoderesultaccess.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PatientInfoResponse {
+public class PatientInfoDto {
 
     private String patientName;
     private String secretCode;

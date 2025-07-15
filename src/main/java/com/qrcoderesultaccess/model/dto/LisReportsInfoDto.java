@@ -1,4 +1,4 @@
-package com.qrcoderesultaccess.model.dto.response;
+package com.qrcoderesultaccess.model.dto;
 
 import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class LisReportsInfoResponse {
+public class LisReportsInfoDto {
 
     private Integer uniqueId;
     private Integer sesId;

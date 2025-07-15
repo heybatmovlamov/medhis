@@ -4,9 +4,9 @@ import static com.qrcoderesultaccess.exception.constant.ErrorMessage.PATIENT_ID_
 
 import com.qrcoderesultaccess.dao.repository.PatientRepository;
 import com.qrcoderesultaccess.exception.DataNotFoundException;
-import com.qrcoderesultaccess.model.dto.response.LisReportsInfoResponse;
-import com.qrcoderesultaccess.model.dto.response.PatientInfoResponse;
-import com.qrcoderesultaccess.model.dto.response.PatientResponse;
+import com.qrcoderesultaccess.model.dto.LisReportsInfoDto;
+import com.qrcoderesultaccess.model.dto.PatientInfoDto;
+import com.qrcoderesultaccess.model.dto.PatientsIdDto;
 import com.qrcoderesultaccess.service.PatientService;
 import java.util.List;
 import java.util.Set;
@@ -23,16 +23,16 @@ public class PatientServiceImpl implements PatientService {
     private final PatientRepository repository;
 
     @Override
-    public PatientResponse patientResponse() {
+    public PatientsIdDto patientResponse() {
         final Set<Integer> patientIds = repository.getPatientIds();
         if (patientIds.isEmpty()) {
             throw DataNotFoundException.of(PATIENT_ID_NOT_FOUND);
         }
-        return PatientResponse.builder().id(patientIds).build();
+        return PatientsIdDto.builder().id(patientIds).build();
     }
 
     @Override
-    public PatientInfoResponse getPatientInfoById(Integer id) {
+    public PatientInfoDto getPatientInfoById(Integer id) {
         return  repository.getPatientInfo(id)
                 .stream()
                 .findFirst()
@@ -40,8 +40,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<LisReportsInfoResponse> lisReportsInfo(Integer id) {
-        final List<LisReportsInfoResponse> newLisReport = repository.getNewLisReport(id);
+    public List<LisReportsInfoDto> lisReportsInfo(Integer id) {
+        final List<LisReportsInfoDto> newLisReport = repository.getNewLisReport(id);
         if (newLisReport.isEmpty()) {
             throw DataNotFoundException.of(PATIENT_ID_NOT_FOUND);
         }

@@ -1,8 +1,8 @@
 package com.qrcoderesultaccess.controller;
 
-import com.qrcoderesultaccess.model.dto.response.LisReportsInfoResponse;
-import com.qrcoderesultaccess.model.dto.response.PatientInfoResponse;
-import com.qrcoderesultaccess.model.dto.response.PatientResponse;
+import com.qrcoderesultaccess.model.dto.LisReportsInfoDto;
+import com.qrcoderesultaccess.model.dto.PatientInfoDto;
+import com.qrcoderesultaccess.model.dto.PatientsIdDto;
 import com.qrcoderesultaccess.service.impl.PatientServiceImpl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -20,17 +20,17 @@ public class PatientController {
     private final PatientServiceImpl patientServiceImpl;
 
     @GetMapping("/patients")
-    public ResponseEntity<PatientResponse> getPatients() {
+    public ResponseEntity<PatientsIdDto> getPatients() {
         return ResponseEntity.ok(patientServiceImpl.patientResponse());
     }
 
     @GetMapping("/patients/{id}")
-    public ResponseEntity<PatientInfoResponse> getPatientInfo(@PathVariable Integer id) {
+    public ResponseEntity<PatientInfoDto> getPatientInfo(@PathVariable Integer id) {
         return ResponseEntity.ok(patientServiceImpl.getPatientInfoById(id));
     }
 
     @GetMapping("/patients/{id}/lis-reports")
-    public ResponseEntity<List<LisReportsInfoResponse>> getPatientInfoLis(@PathVariable Integer id) {
+    public ResponseEntity<List<LisReportsInfoDto>> getPatientInfoLis(@PathVariable Integer id) {
         return ResponseEntity.ok(patientServiceImpl.lisReportsInfo(id));
     }
 }

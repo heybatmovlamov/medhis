@@ -1,9 +1,9 @@
 package com.qrcoderesultaccess.service.impl;
 
-import com.qrcoderesultaccess.model.dto.response.CloudResponse;
-import com.qrcoderesultaccess.model.dto.response.LisReportsInfoResponse;
-import com.qrcoderesultaccess.model.dto.response.LocalResponse;
-import com.qrcoderesultaccess.model.dto.response.PatientInfoResponse;
+import com.qrcoderesultaccess.model.dto.CloudDto;
+import com.qrcoderesultaccess.model.dto.LisReportsInfoDto;
+import com.qrcoderesultaccess.model.dto.LocalDto;
+import com.qrcoderesultaccess.model.dto.PatientInfoDto;
 import com.qrcoderesultaccess.service.DbFetcherService;
 import com.qrcoderesultaccess.service.PatientService;
 import java.util.List;
@@ -20,23 +20,23 @@ public class DbFetcherServiceImpl implements DbFetcherService {
     private final PatientService patientService;
 
     @Override
-    public CloudResponse fetchDbData() {
-        CloudResponse cloudResponse = CloudResponse.builder().build();
+    public CloudDto fetchDbData() {
+        CloudDto cloudDto = CloudDto.builder().build();
 
         Set<Integer> ids = patientService.patientResponse().getId();
 
         ids.forEach(id -> {
-            PatientInfoResponse patientInfoById = patientService.getPatientInfoById(id);
-            List<LisReportsInfoResponse> lisReportsInfoResponses = patientService.lisReportsInfo(id);
-            LocalResponse json = LocalResponse.builder()
+            PatientInfoDto patientInfoById = patientService.getPatientInfoById(id);
+            List<LisReportsInfoDto> lisReportsInfoRespons = patientService.lisReportsInfo(id);
+            LocalDto json = LocalDto.builder()
                     .id(id)
                     .patientInfo(patientInfoById)
-                    .lisReportsInfo(lisReportsInfoResponses)
+                    .lisReportsInfo(lisReportsInfoRespons)
                     .build();
-            cloudResponse.getCloudResponseList().add(json);
+            cloudDto.getCloudResponseList().add(json);
         });
 
-        log.info(cloudResponse.toString());
-        return cloudResponse;
+        log.info(cloudDto.toString());
+        return cloudDto;
     }
 }

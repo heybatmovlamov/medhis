@@ -1,15 +1,15 @@
 package com.qrcoderesultaccess.service;
 
-import com.qrcoderesultaccess.model.dto.response.LisReportsInfoResponse;
-import com.qrcoderesultaccess.model.dto.response.PatientInfoResponse;
-import com.qrcoderesultaccess.model.dto.response.PatientResponse;
+import com.qrcoderesultaccess.model.dto.LisReportsInfoDto;
+import com.qrcoderesultaccess.model.dto.PatientInfoDto;
+import com.qrcoderesultaccess.model.dto.PatientsIdDto;
 import java.util.List;
 
 public interface PatientService {
 
-    PatientResponse patientResponse();
+    PatientsIdDto patientResponse();
 
-    PatientInfoResponse getPatientInfoById(Integer id);
+    PatientInfoDto getPatientInfoById(Integer id);
 
-    List<LisReportsInfoResponse> lisReportsInfo(Integer id);
+    List<LisReportsInfoDto> lisReportsInfo(Integer id);
 }

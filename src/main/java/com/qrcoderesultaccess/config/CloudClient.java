@@ -1,6 +1,6 @@
 package com.qrcoderesultaccess.config;
 
-import com.qrcoderesultaccess.model.dto.response.CloudResponse;
+import com.qrcoderesultaccess.model.dto.CloudDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface CloudClient {
 
     @PostMapping("/cloud-lis/upload")
-    Integer uploadToCloud(@RequestBody CloudResponse request);
+    Integer uploadToCloud(@RequestBody CloudDto request);
 }
