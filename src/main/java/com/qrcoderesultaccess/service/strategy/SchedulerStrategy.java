@@ -1,10 +1,11 @@
 package com.qrcoderesultaccess.service.strategy;
 
 import java.time.LocalTime;
+import java.util.List;
 
 public interface SchedulerStrategy {
 
-    Integer execute();
+    List<Integer> execute();
 
     Boolean shouldRun(LocalTime now);
 

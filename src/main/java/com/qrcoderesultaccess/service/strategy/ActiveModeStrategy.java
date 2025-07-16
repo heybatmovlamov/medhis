@@ -4,6 +4,7 @@ import com.qrcoderesultaccess.model.dto.CloudDto;
 import com.qrcoderesultaccess.service.ClientService;
 import com.qrcoderesultaccess.service.DbFetcherService;
 import java.time.LocalTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class ActiveModeStrategy implements SchedulerStrategy {
     private final ClientService clientService;
 
     @Override
-    public Integer execute() {
+    public List<Integer> execute() {
         CloudDto response = fetcherService.fetchDbData();
         return clientService.uploadToCloud(response);
     }

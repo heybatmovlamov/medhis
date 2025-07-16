@@ -3,6 +3,7 @@ package com.qrcoderesultaccess.service.strategy;
 import static java.lang.Boolean.FALSE;
 
 import java.time.LocalTime;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,8 @@ import org.springframework.stereotype.Service;
 public class SleepModeStrategy implements SchedulerStrategy {
 
     @Override
-    public Integer execute() {
-        return 0;
+    public List<Integer> execute() {
+        return List.of();
     }
 
     @Override

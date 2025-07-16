@@ -1,9 +1,10 @@
 package com.qrcoderesultaccess.service.strategy;
 
-import com.qrcoderesultaccess.config.CloudClient;
 import com.qrcoderesultaccess.model.dto.CloudDto;
+import com.qrcoderesultaccess.service.ClientService;
 import com.qrcoderesultaccess.service.DbFetcherService;
 import java.time.LocalTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,23 +15,25 @@ import org.springframework.stereotype.Service;
 public class PassiveModeStrategy implements SchedulerStrategy {
 
     private final DbFetcherService fetcherService;
-    private final CloudClient client;
+    private final ClientService clientService;
 
     @Override
-    public Integer execute() {
+    public List<Integer> execute() {
         CloudDto response = fetcherService.fetchDbData();
-        return client.uploadToCloud(response);
+        List<Integer> integers = clientService.uploadToCloud(response);
+        log.info(integers.toString());
+        return integers;
     }
 
     @Override
     public Boolean shouldRun(LocalTime now) {
         log.info("Passive mode running");
-        return now.getMinute() % 2 == 0;
+        return now.getMinute() % 1 == 0;
     }
 
     @Override
     public Boolean supports(LocalTime now) {
         log.info("Passive mode supports : " + "16:00 - 22:00");
-        return now.isAfter(LocalTime.of(16, 0)) && now.isBefore(LocalTime.of(22, 0));
+        return now.isAfter(LocalTime.of(16, 0)) && now.isBefore(LocalTime.of(23, 0));
     }
 }
