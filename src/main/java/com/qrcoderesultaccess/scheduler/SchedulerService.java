@@ -15,7 +15,7 @@ public class SchedulerService {
 
     private final Factory factory;
 
-    @Scheduled(cron = "0 */1 * * * *")
+    @Scheduled(cron = "0 */3 * * * *")
     public void runScheduler() {
         LocalTime now = LocalTime.now();
         factory.getStrategy(now).ifPresent(SchedulerStrategy::execute);

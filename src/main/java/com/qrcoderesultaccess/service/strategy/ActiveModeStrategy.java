@@ -20,13 +20,15 @@ public class ActiveModeStrategy implements SchedulerStrategy {
     @Override
     public List<Integer> execute() {
         CloudDto response = fetcherService.fetchDbData();
-        return clientService.uploadToCloud(response);
+        List<Integer> integers = clientService.uploadToCloud(response);
+        log.info(integers.toString());
+        return integers;
     }
 
     @Override
     public Boolean shouldRun(LocalTime now) {
         log.info("Active mode running");
-        return now.getMinute() % 2 == 0;
+        return now.getMinute() % 3 == 0;
     }
 
     @Override

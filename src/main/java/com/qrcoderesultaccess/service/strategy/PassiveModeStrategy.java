@@ -28,7 +28,7 @@ public class PassiveModeStrategy implements SchedulerStrategy {
     @Override
     public Boolean shouldRun(LocalTime now) {
         log.info("Passive mode running");
-        return now.getMinute() % 1 == 0;
+        return now.getMinute() % 15 == 0;
     }
 
     @Override
