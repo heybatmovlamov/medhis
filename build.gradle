@@ -35,6 +35,7 @@ dependencies {
     //SWAGGER
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0"
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'commons-codec:commons-codec:1.15'//HmacUtils
 
 
     compileOnly 'org.projectlombok:lombok'
@@ -44,6 +45,7 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'  //mapstruct dependency elave etdim
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
 }
 
 dependencyManagement {

@@ -1,7 +1,7 @@
 package com.qrcoderesultaccess.service.strategy;
 
 import com.qrcoderesultaccess.model.dto.CloudDto;
-import com.qrcoderesultaccess.service.ClientService;
+import com.qrcoderesultaccess.service.impl.ClientServiceImpl;
 import com.qrcoderesultaccess.service.DbFetcherService;
 import java.time.LocalTime;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class PassiveModeStrategy implements SchedulerStrategy {
 
     private final DbFetcherService fetcherService;
-    private final ClientService clientService;
+    private final ClientServiceImpl clientService;
 
     @Override
     public List<Integer> execute() {
