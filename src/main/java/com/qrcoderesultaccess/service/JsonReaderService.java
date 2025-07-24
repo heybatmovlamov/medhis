@@ -31,7 +31,7 @@ public class JsonReaderService {
     }
 
     public Boolean supportedTime(Integer integer, LocalTime now) {
-        TimeDto time = readPersonJson().get(integer);
+        TimeDto time = readData(integer);
 
         int startDateHour = time.getStartedTime().getHour();
         int startDateMinute = time.getStartedTime().getMinute();
@@ -42,4 +42,14 @@ public class JsonReaderService {
                 && now.isBefore(LocalTime.of(endDateHour, endDateMinute));
     }
 
+    private TimeDto readData(Integer integer) {
+        return readPersonJson().get(integer);
+    }
+
+    public Boolean shouldRun(Integer requestTime, LocalTime now) {
+        TimeDto time = readData(requestTime);
+        Integer requestedTime = time.getRequestedTime();
+        log.info("Active mode running");
+        return now.getMinute() % requestedTime == 0;
+    }
 }

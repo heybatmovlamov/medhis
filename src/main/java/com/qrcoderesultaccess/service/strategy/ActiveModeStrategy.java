@@ -29,8 +29,7 @@ public class ActiveModeStrategy implements SchedulerStrategy {
 
     @Override
     public Boolean shouldRun(LocalTime now) {
-        log.info("Active mode running");
-        return now.getMinute() % 3 == 0;
+        return jsonReaderService.shouldRun(0, now);
     }
 
     @Override
