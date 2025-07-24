@@ -13,5 +13,4 @@ public class QrCodeResultAccessApplication {
     public static void main(String[] args) {
         SpringApplication.run(QrCodeResultAccessApplication.class, args);
     }
-
 }

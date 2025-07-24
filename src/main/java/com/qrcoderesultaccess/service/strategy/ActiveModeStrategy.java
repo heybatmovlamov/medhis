@@ -1,8 +1,9 @@
 package com.qrcoderesultaccess.service.strategy;
 
 import com.qrcoderesultaccess.model.dto.CloudDto;
-import com.qrcoderesultaccess.service.impl.ClientServiceImpl;
+import com.qrcoderesultaccess.service.ClientService;
 import com.qrcoderesultaccess.service.DbFetcherService;
+import com.qrcoderesultaccess.service.JsonReaderService;
 import java.time.LocalTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,8 @@ import org.springframework.stereotype.Service;
 public class ActiveModeStrategy implements SchedulerStrategy {
 
     private final DbFetcherService fetcherService;
-    private final ClientServiceImpl clientService;
+    private final ClientService clientService;
+    private final JsonReaderService jsonReaderService;
 
     @Override
     public List<Integer> execute() {
@@ -33,7 +35,7 @@ public class ActiveModeStrategy implements SchedulerStrategy {
 
     @Override
     public Boolean supports(LocalTime now) {
-        log.info("Active mode supports : " + "8:00 - 16:00");
-        return now.isAfter(LocalTime.of(8, 0)) && now.isBefore(LocalTime.of(16, 0));
+        return jsonReaderService.supportedTime(0, now);
     }
+
 }

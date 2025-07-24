@@ -1,0 +1,17 @@
+[
+  {
+    "started-time": "08:00",
+    "end-time": "22:00",
+    "timeEnum": "ACTIVE"
+  },
+  {
+    "started-time": "16:00",
+    "end-time": "22:00",
+    "timeEnum": "PASSIVE"
+  },
+  {
+    "started-time": "22:00",
+    "end-time": "08:00",
+    "timeEnum": "SLEEP"
+  }
+]
