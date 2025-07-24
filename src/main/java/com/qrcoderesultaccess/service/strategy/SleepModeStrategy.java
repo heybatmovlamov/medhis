@@ -2,7 +2,7 @@ package com.qrcoderesultaccess.service.strategy;
 
 import static java.lang.Boolean.FALSE;
 
-import com.qrcoderesultaccess.service.JsonReaderService;
+import com.qrcoderesultaccess.service.impl.JsonReaderServiceImpl;
 import java.time.LocalTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SleepModeStrategy implements SchedulerStrategy {
 
-    private final JsonReaderService jsonReaderService;
+    private final JsonReaderServiceImpl jsonReaderServiceImpl;
 
     @Override
     public List<Integer> execute() {
@@ -29,6 +29,6 @@ public class SleepModeStrategy implements SchedulerStrategy {
 
     @Override
     public Boolean supports(LocalTime now) {
-        return jsonReaderService.supportedTime(2, now);
+        return jsonReaderServiceImpl.supportedTime(2, now);
     }
 }

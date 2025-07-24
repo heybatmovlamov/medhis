@@ -3,7 +3,7 @@ package com.qrcoderesultaccess.service.strategy;
 import com.qrcoderesultaccess.model.dto.CloudDto;
 import com.qrcoderesultaccess.service.ClientService;
 import com.qrcoderesultaccess.service.DbFetcherService;
-import com.qrcoderesultaccess.service.JsonReaderService;
+import com.qrcoderesultaccess.service.impl.JsonReaderServiceImpl;
 import java.time.LocalTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class PassiveModeStrategy implements SchedulerStrategy {
 
     private final DbFetcherService fetcherService;
     private final ClientService clientService;
-    private final JsonReaderService jsonReaderService;
+    private final JsonReaderServiceImpl jsonReaderServiceImpl;
 
     @Override
     public List<Integer> execute() {
@@ -35,6 +35,6 @@ public class PassiveModeStrategy implements SchedulerStrategy {
 
     @Override
     public Boolean supports(LocalTime now) {
-        return jsonReaderService.supportedTime(1, now);
+        return jsonReaderServiceImpl.supportedTime(1, now);
     }
 }
