@@ -23,7 +23,7 @@ public class JsonReaderService {
     private List<TimeDto> readPersonJson() {
         Resource resource = resourceLoader.getResource("classpath:data/time-settings.json");
         try {
-            return objectMapper.readValue(resource.getInputStream(), new TypeReference<List<TimeDto>>() {
+            return objectMapper.readValue(resource.getInputStream(), new TypeReference<>() {
             });
         } catch (IOException e) {
             throw new RuntimeException(e);
