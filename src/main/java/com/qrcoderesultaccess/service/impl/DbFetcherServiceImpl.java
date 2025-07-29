@@ -27,11 +27,11 @@ public class DbFetcherServiceImpl implements DbFetcherService {
 
         ids.forEach(id -> {
             PatientInfoDto patientInfoById = patientService.getPatientInfoById(id);
-            List<LisReportsInfoDto> lisReportsInfoRespons = patientService.lisReportsInfo(id);
+            List<LisReportsInfoDto> lisReportsInfoResponse = patientService.lisReportsInfo(id);
             LocalDto json = LocalDto.builder()
                     .id(id)
                     .patientInfo(patientInfoById)
-                    .lisReportsInfo(lisReportsInfoRespons)
+                    .lisReportsInfo(lisReportsInfoResponse)
                     .build();
             cloudDto.getCloudResponseList().add(json);
         });

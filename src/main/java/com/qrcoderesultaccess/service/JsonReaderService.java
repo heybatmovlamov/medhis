@@ -20,7 +20,7 @@ public class JsonReaderService {
     private final ResourceLoader resourceLoader;
     private final ObjectMapper objectMapper;
 
-    private List<TimeDto> readPersonJson() {
+    private List<TimeDto>   readPersonJson() {
         Resource resource = resourceLoader.getResource("classpath:data/time-settings.json");
         try {
             return objectMapper.readValue(resource.getInputStream(), new TypeReference<>() {

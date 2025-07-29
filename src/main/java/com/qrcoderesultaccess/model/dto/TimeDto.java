@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class TimeDto {
 
+    @JsonProperty("requested-time")
     private Integer requestedTime;
 
     @JsonProperty("started-time")
