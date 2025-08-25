@@ -1,9 +1,10 @@
 package com.qrcoderesultaccess.service.strategy;
 
 import com.qrcoderesultaccess.model.dto.CloudDto;
+import com.qrcoderesultaccess.model.enums.TimeEnum;
 import com.qrcoderesultaccess.service.ClientService;
 import com.qrcoderesultaccess.service.DbFetcherService;
-import com.qrcoderesultaccess.service.impl.JsonReaderServiceImpl;
+import com.qrcoderesultaccess.service.JsonReaderService;
 import java.time.LocalTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class PassiveModeStrategy implements SchedulerStrategy {
 
     private final DbFetcherService fetcherService;
     private final ClientService clientService;
-    private final JsonReaderServiceImpl jsonReaderServiceImpl;
+    private final JsonReaderService jsonReaderService;
 
     @Override
     public List<Integer> execute() {
@@ -30,11 +31,16 @@ public class PassiveModeStrategy implements SchedulerStrategy {
     @Override
     public Boolean shouldRun(LocalTime now) {
         log.info("Passive mode running");
-        return now.getMinute() % 15 == 0;
+        return jsonReaderService.shouldRun(TimeEnum.PASSIVE, now);
     }
 
     @Override
     public Boolean supports(LocalTime now) {
-        return jsonReaderServiceImpl.supportedTime(1, now);
+        return jsonReaderService.supportedTime(TimeEnum.PASSIVE, now);
     }
+
+//    @Override
+//    public TimeEnum getMode() {
+//        return TimeEnum.PASSIVE;
+//    }
 }

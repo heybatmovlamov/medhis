@@ -1,55 +1,53 @@
 package com.qrcoderesultaccess.service.impl;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qrcoderesultaccess.model.dto.TimeDto;
-import java.io.IOException;
+import com.qrcoderesultaccess.config.MyConfigProperties;
+import com.qrcoderesultaccess.config.TimeSlotConfig;
+import com.qrcoderesultaccess.model.enums.TimeEnum;
+import com.qrcoderesultaccess.service.JsonReaderService;
 import java.time.LocalTime;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class JsonReaderServiceImpl {
+public class JsonReaderServiceImpl implements JsonReaderService {
 
-    private final ResourceLoader resourceLoader;
-    private final ObjectMapper objectMapper;
+    private final MyConfigProperties myConfigProperties;
 
-    private List<TimeDto> readPersonJson() {
-        Resource resource = resourceLoader.getResource("classpath:data/time-settings.json");
-        try {
-            return objectMapper.readValue(resource.getInputStream(), new TypeReference<>() {
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    @Override
+    public Boolean shouldRun(TimeEnum mode, LocalTime now) {
+        Integer requestedTime = myConfigProperties.getTimeSlots().stream()
+                .filter(slot -> slot.getTimeEnum() == mode)
+                .map(TimeSlotConfig::getRequestedTime)
+                .findFirst()
+                .orElse(null);
+
+        if (requestedTime == null) {
+            return false;
+        }
+
+        return now.getMinute() % requestedTime == 0;
+    }
+
+    @Override
+    public Boolean supportedTime(TimeEnum mode, LocalTime now) {
+        return myConfigProperties.getTimeSlots().stream()
+                .filter(slot -> slot.getTimeEnum() == mode)
+                .anyMatch(slot -> isInTimeRange(now, slot.getStartedTime(), slot.getEndTime()));
+    }
+
+    private boolean isInTimeRange(LocalTime now, String start, String end) {
+        LocalTime startTime = LocalTime.parse(start);
+        LocalTime endTime = LocalTime.parse(end);
+
+        if (endTime.isAfter(startTime)) {
+            return !now.isBefore(startTime) && now.isBefore(endTime);
+        } else {
+            // Gecə dövrü (22:00 - 08:00 kimi)
+            return !now.isBefore(startTime) || now.isBefore(endTime);
         }
     }
 
-    public Boolean supportedTime(Integer integer, LocalTime now) {
-        TimeDto time = readData(integer);
-
-        int startDateHour = time.getStartedTime().getHour();
-        int startDateMinute = time.getStartedTime().getMinute();
-        int endDateHour = time.getEndTime().getHour();
-        int endDateMinute = time.getEndTime().getMinute();
-
-        return now.isAfter(LocalTime.of(startDateHour, startDateMinute))
-                && now.isBefore(LocalTime.of(endDateHour, endDateMinute));
-    }
-
-    private TimeDto readData(Integer integer) {
-        return readPersonJson().get(integer);
-    }
-
-    public Boolean shouldRun(Integer requestTime, LocalTime now) {
-        TimeDto time = readData(requestTime);
-        Integer requestedTime = time.getRequestedTime();
-        log.info("Active mode running");
-        return now.getMinute() % requestedTime == 0;
-    }
 }

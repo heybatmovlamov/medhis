@@ -22,5 +22,19 @@ spring:
     properties:
       hibernate.format_sql: false
 
-scheduler:
-  cron: "0 */3 * * * *"
+mode-config:
+  time-slots:
+    - requested-time: 3
+      started-time: "08:00"
+      end-time: "12:30"
+      timeEnum: "ACTIVE"
+
+    - requested-time: 15
+      started-time: "12:30"
+      end-time: "13:00"
+      timeEnum: "PASSIVE"
+
+    - requested-time: null
+      started-time: "13:00"
+      end-time: "13:30"
+      timeEnum: "SLEEP"
